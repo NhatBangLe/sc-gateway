@@ -15,14 +15,14 @@ import static org.springframework.cloud.gateway.server.mvc.filter.FilterFunction
 public class ProjectServiceRoutes {
 
     @Value("${PROJECT_SERVICE_BASE_URL}")
-    private String projectServiceUrl;
+    private String serviceUrl;
     private final String URL_PREFIX = "/api/v1";
 
     @Bean
     public RouterFunction<ServerResponse> projectProjectServiceRouter() {
         return GatewayRouterFunctions
                 .route("project-project-service")
-                .route(RequestPredicates.path(URL_PREFIX + "/project/**"), HandlerFunctions.http(projectServiceUrl))
+                .route(RequestPredicates.path(URL_PREFIX + "/project/**"), HandlerFunctions.http(serviceUrl))
                 .build();
     }
 
@@ -30,7 +30,7 @@ public class ProjectServiceRoutes {
     public RouterFunction<ServerResponse> stageProjectServiceRouter() {
         return GatewayRouterFunctions
                 .route("stage-project-service")
-                .route(RequestPredicates.path(URL_PREFIX + "/stage/**"), HandlerFunctions.http(projectServiceUrl))
+                .route(RequestPredicates.path(URL_PREFIX + "/stage/**"), HandlerFunctions.http(serviceUrl))
                 .build();
     }
 
@@ -38,7 +38,7 @@ public class ProjectServiceRoutes {
     public RouterFunction<ServerResponse> formProjectServiceRouter() {
         return GatewayRouterFunctions
                 .route("form-project-service")
-                .route(RequestPredicates.path(URL_PREFIX + "/form/**"), HandlerFunctions.http(projectServiceUrl))
+                .route(RequestPredicates.path(URL_PREFIX + "/form/**"), HandlerFunctions.http(serviceUrl))
                 .build();
     }
 
@@ -46,7 +46,7 @@ public class ProjectServiceRoutes {
     public RouterFunction<ServerResponse> fieldProjectServiceRouter() {
         return GatewayRouterFunctions
                 .route("field-project-service")
-                .route(RequestPredicates.path(URL_PREFIX + "/field/**"), HandlerFunctions.http(projectServiceUrl))
+                .route(RequestPredicates.path(URL_PREFIX + "/field/**"), HandlerFunctions.http(serviceUrl))
                 .build();
     }
 
@@ -54,7 +54,7 @@ public class ProjectServiceRoutes {
     public RouterFunction<ServerResponse> sampleProjectServiceRouter() {
         return GatewayRouterFunctions
                 .route("sample-project-service")
-                .route(RequestPredicates.path(URL_PREFIX + "/sample/**"), HandlerFunctions.http(projectServiceUrl))
+                .route(RequestPredicates.path(URL_PREFIX + "/sample/**"), HandlerFunctions.http(serviceUrl))
                 .build();
     }
 
@@ -64,7 +64,7 @@ public class ProjectServiceRoutes {
                 .route("project-service-swagger")
                 .route(
                         RequestPredicates.path("/aggregate/project/v3/api-docs"),
-                        HandlerFunctions.http(projectServiceUrl)
+                        HandlerFunctions.http(serviceUrl)
                 )
                 .filter(setPath("/api-docs"))
                 .build();

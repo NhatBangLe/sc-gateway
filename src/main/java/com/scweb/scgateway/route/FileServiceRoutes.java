@@ -17,13 +17,13 @@ import static org.springframework.cloud.gateway.server.mvc.filter.FilterFunction
 public class FileServiceRoutes {
 
     @Value("${FILE_SERVICE_BASE_URL}")
-    private String fileServiceUrl;
+    private String serviceUrl;
 
     @Bean
     public RouterFunction<ServerResponse> fileServiceRouter() {
         return GatewayRouterFunctions
                 .route("file-service")
-                .route(RequestPredicates.path("/api/file/**"), HandlerFunctions.http(fileServiceUrl))
+                .route(RequestPredicates.path("/api/file/**"), HandlerFunctions.http(serviceUrl))
                 .build();
     }
 
@@ -33,7 +33,7 @@ public class FileServiceRoutes {
                 .route("file-service-swagger")
                 .route(
                         RequestPredicates.path("/aggregate/file/v3/api-docs"),
-                        HandlerFunctions.http(fileServiceUrl)
+                        HandlerFunctions.http(serviceUrl)
                 )
                 .filter(setPath("/api-docs"))
                 .build();
