@@ -1,0 +1,19 @@
+services:
+  sc-gateway:
+    restart: always
+    container_name: sc-gateway
+    ports:
+      - "${SERVICE_PORT}:8080"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      SECURE_USER: admin
+      SECURE_PASSWORD: admin
+      ROOT_LOG_LEVEL: error
+      WEB_LOG_LEVEL: debug
+      PROJECT_SERVICE_BASE_URL: http://localhost:8081
+      FILE_SERVICE_BASE_URL: http://localhost:8082
+      POST_SERVICE_BASE_URL: http://localhost:8083
+    volumes:
+      - ./logs:/sc-gateway/logs
