@@ -3,17 +3,24 @@ services:
     restart: always
     container_name: sc-gateway
     ports:
-      - "${SERVICE_PORT}:8080"
+      - "8080:8080"
     build:
       context: .
       dockerfile: Dockerfile
     environment:
+      PROFILE_ACTIVE: test
       SECURE_USER: admin
       SECURE_PASSWORD: admin
       ROOT_LOG_LEVEL: error
       WEB_LOG_LEVEL: debug
-      PROJECT_SERVICE_BASE_URL: http://localhost:8081
-      FILE_SERVICE_BASE_URL: http://localhost:8082
-      POST_SERVICE_BASE_URL: http://localhost:8083
+      EUREKA_APP_NAME: gateway
+      PROJECT_SERVICE_ID: project-service
+      CHAT_SERVICE_ID: chat-service
+      FILE_SERVICE_ID: file-service
+      POST_SERVICE_ID: post-service
+      DEFAULT_ZONE: http://admin:admin@localhost:8080/eureka/
     volumes:
-      - ./logs:/sc-gateway/logs
+      - logs:/sc-gateway/logs
+volumes:
+  logs:
+    name: gateway-logs

@@ -17,7 +17,8 @@ public class SecurityConfiguration {
         http.authorizeHttpRequests(authorization ->
                 authorization.requestMatchers(freeResourceUrls).permitAll()
                         .anyRequest().permitAll());
-        http.cors(AbstractHttpConfigurer::disable);
+        http.cors(AbstractHttpConfigurer::disable)
+                .csrf(AbstractHttpConfigurer::disable);
         return http.build();
     }
 
