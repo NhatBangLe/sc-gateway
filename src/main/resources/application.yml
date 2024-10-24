@@ -2,24 +2,32 @@ spring:
   application:
     name: gateway
   security:
-    user:
-      name: ${SECURE_USER:user}
-      password: ${SECURE_PASSWORD:user}
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${keycloak.server-url}/realms/${keycloak.realm}
   profiles:
     active: ${PROFILE_ACTIVE:dev}
 
-# Service IDs
-PROJECT_SERVICE_INSTANCE_ID: ${PROJECT_SERVICE_ID:project-service}
-CHAT_SERVICE_INSTANCE_ID: ${CHAT_SERVICE_ID:chat-service}
-FILE_SERVICE_INSTANCE_ID: ${FILE_SERVICE_ID:file-service}
-POST_SERVICE_INSTANCE_ID: ${POST_SERVICE_ID:post-service}
+keycloak:
+  server-url: ${KC_SERVER_URL}
+  realm: ${KC_REALM}
+  client-id: ${KC_CLIENT_ID}
+  client-secret: ${KC_CLIENT_SECRET}
 
 eureka:
   instance:
     appname: ${EUREKA_APP_NAME:unknown}
   client:
     service-url:
-      defaultZone: ${DEFAULT_ZONE:http://admin:admin@localhost:8080/eureka/}
+      defaultZone: ${DEFAULT_ZONE}
+
+# Service IDs
+USER_SERVICE_INSTANCE_ID: ${USER_SERVICE_ID}
+PROJECT_SERVICE_INSTANCE_ID: ${PROJECT_SERVICE_ID}
+CHAT_SERVICE_INSTANCE_ID: ${CHAT_SERVICE_ID}
+FILE_SERVICE_INSTANCE_ID: ${FILE_SERVICE_ID}
+POST_SERVICE_INSTANCE_ID: ${POST_SERVICE_ID}
 
 # API docs - Swagger
 springdoc:
@@ -37,5 +45,8 @@ springdoc:
     urls[3]:
       name: Post Service
       url: /aggregate/post/v3/api-docs
+    urls[4]:
+      name: User Service
+      url: /aggregate/user/v3/api-docs
   api-docs:
     path: /api-docs

@@ -9,7 +9,7 @@ RUN addgroup --system spring && adduser --system spring && adduser spring spring
 COPY --from=build /app/target/sc-gateway.jar /sc-gateway/app.jar
 WORKDIR /sc-gateway
 RUN mkdir logs
-RUN chmod spring:spring logs
+RUN chown spring:spring logs
 
 USER spring:spring
 CMD ["java", "-jar", "app.jar"]
