@@ -15,26 +15,26 @@ import static org.springframework.cloud.gateway.server.mvc.handler.HandlerFuncti
 
 @Configuration
 @RequiredArgsConstructor
-public class ChatServiceRoutes {
+public class UserServiceRoutes {
 
-    @Value("${CHAT_SERVICE_INSTANCE_ID}")
-    private String chatServiceId;
+    @Value("${USER_SERVICE_INSTANCE_ID}")
+    private String userServiceId;
 
     @Bean
-    public RouterFunction<ServerResponse> chatServiceRouter() {
+    public RouterFunction<ServerResponse> userServiceRouter() {
         return GatewayRouterFunctions
-                .route("chat-service")
-                .filter(lb(chatServiceId))
-                .route(RequestPredicates.path("/api/v1/chat/**"), http())
+                .route("user-service")
+                .filter(lb(userServiceId))
+                .route(RequestPredicates.path("/api/v1/user/**"), http())
                 .build();
     }
 
     @Bean
-    public RouterFunction<ServerResponse> chatServiceSwaggerRouter() {
+    public RouterFunction<ServerResponse> userServiceSwaggerRouter() {
         return GatewayRouterFunctions
-                .route("chat-service-swagger")
-                .filter(lb(chatServiceId))
-                .route(RequestPredicates.path("/aggregate/chat/v3/api-docs"), http())
+                .route("user-service-swagger")
+                .filter(lb(userServiceId))
+                .route(RequestPredicates.path("/aggregate/user/v3/api-docs"), http())
                 .filter(setPath("/api-docs"))
                 .build();
     }
