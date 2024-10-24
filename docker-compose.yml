@@ -9,16 +9,22 @@ services:
       dockerfile: Dockerfile
     environment:
       PROFILE_ACTIVE: test
-      SECURE_USER: admin
-      SECURE_PASSWORD: admin
+
+      KC_REALM: realm
+      KC_SERVER_URL: http://localhost:8181
+      KC_CLIENT_ID: client-id
+      KC_CLIENT_SECRET: client-secret
+
       ROOT_LOG_LEVEL: error
       WEB_LOG_LEVEL: debug
+
       EUREKA_APP_NAME: gateway
+      DEFAULT_ZONE: http://admin:admin@localhost:8080/eureka/
+      USER_SERVICE_ID: user-service
       PROJECT_SERVICE_ID: project-service
       CHAT_SERVICE_ID: chat-service
       FILE_SERVICE_ID: file-service
       POST_SERVICE_ID: post-service
-      DEFAULT_ZONE: http://admin:admin@localhost:8080/eureka/
     volumes:
       - logs:/sc-gateway/logs
 volumes:
