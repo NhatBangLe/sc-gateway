@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties("keycloak")
 public class KeycloakConfigurationProperties {
 
+    private boolean enabled = true;
     private String realm;
     private String serverUrl;
     private String clientId;

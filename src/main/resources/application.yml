@@ -10,17 +10,19 @@ spring:
     active: ${PROFILE_ACTIVE:dev}
 
 keycloak:
-  server-url: ${KC_SERVER_URL}
-  realm: ${KC_REALM}
-  client-id: ${KC_CLIENT_ID}
-  client-secret: ${KC_CLIENT_SECRET}
+  enabled: ${ENABLE_SECURITY:true}
+  server-url: ${KC_SERVER_URL:}
+  realm: ${KC_REALM:}
+  client-id: ${KC_CLIENT_ID:}
+  client-secret: ${KC_CLIENT_SECRET:}
 
 eureka:
   instance:
     appname: ${EUREKA_APP_NAME:unknown}
   client:
+    enabled: ${ENABLE_SECURITY:true}
     service-url:
-      defaultZone: ${DEFAULT_ZONE}
+      defaultZone: ${DEFAULT_ZONE:}
 
 # Service IDs
 USER_SERVICE_INSTANCE_ID: ${USER_SERVICE_ID}

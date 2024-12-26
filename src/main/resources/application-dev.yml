@@ -13,17 +13,8 @@ logging:
       springframework:
         security: debug
 
-eureka:
-  client:
-    enabled: false
-    service-url:
-      defaultZone: http://admin:admin@localhost:8080/eureka/
-
 keycloak:
-  server-url: http://localhost:8181
-  realm: realm
-  client-id: client-id
-  client-secret: client-secret
+  enabled: false
 
 # Service IDs
 USER_SERVICE_INSTANCE_ID: user-service

@@ -6,8 +6,8 @@ RUN ./mvnw clean install -Dmaven.test.skip=true
 FROM eclipse-temurin:21-jre-jammy
 RUN addgroup --system spring && adduser --system spring && adduser spring spring
 
-COPY --from=build /app/target/sc-gateway.jar /sc-gateway/app.jar
-WORKDIR /sc-gateway
+COPY --from=build /app/target/sc-gateway.jar /app/app.jar
+WORKDIR /app
 RUN mkdir logs
 RUN chown spring:spring logs
 
