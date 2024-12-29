@@ -9,6 +9,7 @@ services:
       dockerfile: Dockerfile
     environment:
       PROFILE_ACTIVE: test
+      ENABLE_SECURITY: true
 
       KC_REALM: realm
       KC_SERVER_URL: http://localhost:8181

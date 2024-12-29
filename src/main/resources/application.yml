@@ -20,7 +20,6 @@ eureka:
   instance:
     appname: ${EUREKA_APP_NAME:unknown}
   client:
-    enabled: ${ENABLE_SECURITY:true}
     service-url:
       defaultZone: ${DEFAULT_ZONE:}
 
