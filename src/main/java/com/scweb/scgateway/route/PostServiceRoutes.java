@@ -10,15 +10,14 @@ import org.springframework.web.servlet.function.RouterFunction;
 import org.springframework.web.servlet.function.ServerResponse;
 
 import static org.springframework.cloud.gateway.server.mvc.filter.FilterFunctions.setPath;
-import static org.springframework.cloud.gateway.server.mvc.filter.LoadBalancerFilterFunctions.lb;
 import static org.springframework.cloud.gateway.server.mvc.handler.HandlerFunctions.http;
 
 @Configuration
 @RequiredArgsConstructor
 public class PostServiceRoutes {
 
-    @Value("${POST_SERVICE_INSTANCE_ID}")
-    private String postServiceId;
+    @Value("${app.post-service-url}")
+    private String postServiceUrl;
 
     private final String URL_PREFIX = "/api";
 
@@ -26,8 +25,7 @@ public class PostServiceRoutes {
     public RouterFunction<ServerResponse> commentPostServiceRouter() {
         return GatewayRouterFunctions
                 .route("comment-post-service")
-                .filter(lb(postServiceId))
-                .route(RequestPredicates.path(URL_PREFIX + "/comment/**"), http())
+                .route(RequestPredicates.path(URL_PREFIX + "/comment/**"), http(postServiceUrl))
                 .build();
     }
 
@@ -35,8 +33,7 @@ public class PostServiceRoutes {
     public RouterFunction<ServerResponse> domainPostServiceRouter() {
         return GatewayRouterFunctions
                 .route("domain-post-service")
-                .filter(lb(postServiceId))
-                .route(RequestPredicates.path(URL_PREFIX + "/domain/**"), http())
+                .route(RequestPredicates.path(URL_PREFIX + "/domain/**"), http(postServiceUrl))
                 .build();
     }
 
@@ -44,8 +41,7 @@ public class PostServiceRoutes {
     public RouterFunction<ServerResponse> postPostServiceRouter() {
         return GatewayRouterFunctions
                 .route("post-post-service")
-                .filter(lb(postServiceId))
-                .route(RequestPredicates.path(URL_PREFIX + "/post/**"), http())
+                .route(RequestPredicates.path(URL_PREFIX + "/post/**"), http(postServiceUrl))
                 .build();
     }
 
@@ -53,8 +49,7 @@ public class PostServiceRoutes {
     public RouterFunction<ServerResponse> userPostServiceRouter() {
         return GatewayRouterFunctions
                 .route("user-post-service")
-                .filter(lb(postServiceId))
-                .route(RequestPredicates.path(URL_PREFIX + "/user/**"), http())
+                .route(RequestPredicates.path(URL_PREFIX + "/user/**"), http(postServiceUrl))
                 .build();
     }
 
@@ -62,8 +57,7 @@ public class PostServiceRoutes {
     public RouterFunction<ServerResponse> postServiceSwaggerRouter() {
         return GatewayRouterFunctions
                 .route("post-service-swagger")
-                .filter(lb(postServiceId))
-                .route(RequestPredicates.path("/aggregate/post/v3/api-docs"), http())
+                .route(RequestPredicates.path("/aggregate/post/v3/api-docs"), http(postServiceUrl))
                 .filter(setPath("/api-docs"))
                 .build();
     }

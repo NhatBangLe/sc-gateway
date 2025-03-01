@@ -1,5 +1,6 @@
 services:
   sc-gateway:
+    image: nhatbangle/sc-gateway:latest
     restart: always
     container_name: sc-gateway
     ports:
@@ -8,24 +9,17 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      PROFILE_ACTIVE: test
+      PROFILE_ACTIVE: prod
       ENABLE_SECURITY: true
-
-      KC_REALM: realm
-      KC_SERVER_URL: http://localhost:8181
-      KC_CLIENT_ID: client-id
-      KC_CLIENT_SECRET: client-secret
-
-      ROOT_LOG_LEVEL: error
-      WEB_LOG_LEVEL: debug
-
-      EUREKA_APP_NAME: gateway
-      DEFAULT_ZONE: http://admin:admin@localhost:8080/eureka/
-      USER_SERVICE_ID: user-service
-      PROJECT_SERVICE_ID: project-service
-      CHAT_SERVICE_ID: chat-service
-      FILE_SERVICE_ID: file-service
-      POST_SERVICE_ID: post-service
+      KC_SERVER_URL: localhost:8086
+      KC_REALM: sc-realm
+      KC_CLIENT_ID: sc-service
+      KC_CLIENT_SECRET: secret
+      USER_SERVICE_URL: localhost:8081
+      PROJECT_SERVICE_URL: localhost:8082
+      CHAT_SERVICE_URL: localhost:8083
+      FILE_SERVICE_URL: localhost:8084
+      POST_SERVICE_URL: localhost:8085
     volumes:
       - logs:/app/logs
 volumes:

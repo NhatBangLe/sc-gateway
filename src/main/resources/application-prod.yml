@@ -1,6 +1,6 @@
 logging:
   file:
-    name: ./logs/sc-gateway.log
+    name: ./logs/gateway.log
   level:
     root: ${ROOT_LOG_LEVEL:info}
     web: ${WEB_LOG_LEVEL:error}

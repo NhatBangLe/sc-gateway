@@ -10,22 +10,20 @@ import org.springframework.web.servlet.function.RouterFunction;
 import org.springframework.web.servlet.function.ServerResponse;
 
 import static org.springframework.cloud.gateway.server.mvc.filter.FilterFunctions.setPath;
-import static org.springframework.cloud.gateway.server.mvc.filter.LoadBalancerFilterFunctions.lb;
 import static org.springframework.cloud.gateway.server.mvc.handler.HandlerFunctions.http;
 
 @Configuration
 @RequiredArgsConstructor
 public class ChatServiceRoutes {
 
-    @Value("${CHAT_SERVICE_INSTANCE_ID}")
-    private String chatServiceId;
+    @Value("${app.chat-service-url}")
+    private String chatServiceUrl;
 
     @Bean
     public RouterFunction<ServerResponse> chatServiceRouter() {
         return GatewayRouterFunctions
                 .route("chat-service")
-                .filter(lb(chatServiceId))
-                .route(RequestPredicates.path("/api/v1/chat/**"), http())
+                .route(RequestPredicates.path("/api/v1/chat/**"), http(chatServiceUrl))
                 .build();
     }
 
@@ -33,8 +31,7 @@ public class ChatServiceRoutes {
     public RouterFunction<ServerResponse> chatServiceSwaggerRouter() {
         return GatewayRouterFunctions
                 .route("chat-service-swagger")
-                .filter(lb(chatServiceId))
-                .route(RequestPredicates.path("/aggregate/chat/v3/api-docs"), http())
+                .route(RequestPredicates.path("/aggregate/chat/v3/api-docs"), http(chatServiceUrl))
                 .filter(setPath("/api-docs"))
                 .build();
     }

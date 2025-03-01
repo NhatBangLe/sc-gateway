@@ -10,22 +10,20 @@ import org.springframework.web.servlet.function.RouterFunction;
 import org.springframework.web.servlet.function.ServerResponse;
 
 import static org.springframework.cloud.gateway.server.mvc.filter.FilterFunctions.setPath;
-import static org.springframework.cloud.gateway.server.mvc.filter.LoadBalancerFilterFunctions.lb;
 import static org.springframework.cloud.gateway.server.mvc.handler.HandlerFunctions.http;
 
 @Configuration
 @RequiredArgsConstructor
 public class FileServiceRoutes {
 
-    @Value("${FILE_SERVICE_INSTANCE_ID}")
-    private String fileServiceId;
+    @Value("${app.file-service-url}")
+    private String fileServiceUrl;
 
     @Bean
     public RouterFunction<ServerResponse> fileServiceRouter() {
         return GatewayRouterFunctions
                 .route("file-service")
-                .filter(lb(fileServiceId))
-                .route(RequestPredicates.path("/api/file/**"), http())
+                .route(RequestPredicates.path("/api/file/**"), http(fileServiceUrl))
                 .build();
     }
 
@@ -33,8 +31,7 @@ public class FileServiceRoutes {
     public RouterFunction<ServerResponse> fileServiceSwaggerRouter() {
         return GatewayRouterFunctions
                 .route("file-service-swagger")
-                .filter(lb(fileServiceId))
-                .route(RequestPredicates.path("/aggregate/file/v3/api-docs"), http())
+                .route(RequestPredicates.path("/aggregate/file/v3/api-docs"), http(fileServiceUrl))
                 .filter(setPath("/api-docs"))
                 .build();
     }

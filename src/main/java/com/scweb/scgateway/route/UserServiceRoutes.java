@@ -10,22 +10,20 @@ import org.springframework.web.servlet.function.RouterFunction;
 import org.springframework.web.servlet.function.ServerResponse;
 
 import static org.springframework.cloud.gateway.server.mvc.filter.FilterFunctions.setPath;
-import static org.springframework.cloud.gateway.server.mvc.filter.LoadBalancerFilterFunctions.lb;
 import static org.springframework.cloud.gateway.server.mvc.handler.HandlerFunctions.http;
 
 @Configuration
 @RequiredArgsConstructor
 public class UserServiceRoutes {
 
-    @Value("${USER_SERVICE_INSTANCE_ID}")
-    private String userServiceId;
+    @Value("${app.user-service-url}")
+    private String userServiceUrl;
 
     @Bean
     public RouterFunction<ServerResponse> userServiceRouter() {
         return GatewayRouterFunctions
                 .route("user-service")
-                .filter(lb(userServiceId))
-                .route(RequestPredicates.path("/api/v1/user/**"), http())
+                .route(RequestPredicates.path("/api/v1/user/**"), http(userServiceUrl))
                 .build();
     }
 
@@ -33,8 +31,7 @@ public class UserServiceRoutes {
     public RouterFunction<ServerResponse> userServiceSwaggerRouter() {
         return GatewayRouterFunctions
                 .route("user-service-swagger")
-                .filter(lb(userServiceId))
-                .route(RequestPredicates.path("/aggregate/user/v3/api-docs"), http())
+                .route(RequestPredicates.path("/aggregate/user/v3/api-docs"), http(userServiceUrl))
                 .filter(setPath("/api-docs"))
                 .build();
     }

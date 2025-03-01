@@ -16,20 +16,6 @@ keycloak:
   client-id: ${KC_CLIENT_ID:}
   client-secret: ${KC_CLIENT_SECRET:}
 
-eureka:
-  instance:
-    appname: ${EUREKA_APP_NAME:unknown}
-  client:
-    service-url:
-      defaultZone: ${DEFAULT_ZONE:}
-
-# Service IDs
-USER_SERVICE_INSTANCE_ID: ${USER_SERVICE_ID}
-PROJECT_SERVICE_INSTANCE_ID: ${PROJECT_SERVICE_ID}
-CHAT_SERVICE_INSTANCE_ID: ${CHAT_SERVICE_ID}
-FILE_SERVICE_INSTANCE_ID: ${FILE_SERVICE_ID}
-POST_SERVICE_INSTANCE_ID: ${POST_SERVICE_ID}
-
 # API docs - Swagger
 springdoc:
   swagger-ui:
@@ -51,3 +37,10 @@ springdoc:
       url: /aggregate/user/v3/api-docs
   api-docs:
     path: /api-docs
+
+app:
+  chat-service-url: ${CHAT_SERVICE_URL}
+  file-service-url: ${FILE_SERVICE_URL}
+  post-service-url: ${POST_SERVICE_URL}
+  project-service-url: ${PROJECT_SERVICE_URL}
+  user-service-url: ${USER_SERVICE_URL}
